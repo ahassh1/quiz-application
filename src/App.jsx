@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 
 const questions = [
@@ -33,7 +34,12 @@ const questions = [
   },
 ];
 function App() {
-  const currentQuestion = questions[0];
+  const [selected, setSelected] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentQuestion = questions[currentIndex];
+  const handleNext = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
 
   return (
     <>
@@ -48,8 +54,9 @@ function App() {
             <div className="grid">
               {currentQuestion.options.map((option, index) => (
                 <button
-                  className="btn text-start justify-start px-8 py-5 my-1"
+                  className={`btn text-start  justify-start px-8 py-5 my-1 ${selected === option ? "btn-primary" : ""}`}
                   key={index}
+                  onClick={() => setSelected(option)}
                 >
                   {option}
                 </button>
@@ -58,8 +65,12 @@ function App() {
 
             {/* next button  */}
             <div>
-              <button className="btn rounded-sm btn-block btn-primary mt-4">
-                Next
+              <button
+                className="btn rounded-sm btn-block btn-primary mt-4"
+                disabled={!selected}
+                onClick={handleNext}
+              >
+                Next quiz
               </button>
             </div>
           </div>
