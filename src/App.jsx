@@ -26,7 +26,14 @@ function App() {
     }
   };
   // result screen
-  if (screen === "result") return <ResultScreen />;
+  if (screen === "result")
+    return (
+      <ResultScreen
+        score={score}
+        totalQuestions={totalQuestions}
+        userAnswers={userAnswers}
+      />
+    );
 
   return (
     <>
