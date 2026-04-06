@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import "./App.css";
 
 const questions = [
@@ -36,9 +36,15 @@ const questions = [
 function App() {
   const [selected, setSelected] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [userAnswers, setUserAnswers] = useState([]);
   const currentQuestion = questions[currentIndex];
   const handleNext = () => {
+    const isCorrect = selected === currentQuestion.answer;
+    if (isCorrect) setScore((prev) => prev + 1);
+    setUserAnswers([...userAnswers, selected]);
     setCurrentIndex((prev) => prev + 1);
+    setSelected("");
   };
 
   return (
