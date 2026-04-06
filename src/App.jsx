@@ -5,7 +5,7 @@ import ResultScreen from "./components/ResultScreen";
 
 function App() {
   const [selected, setSelected] = useState("");
-  const [screen, setScreen] = useState();
+  const [screen, setScreen] = useState("quiz");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
@@ -25,6 +25,13 @@ function App() {
       return setScreen("result");
     }
   };
+  const playAgain = () => {
+    setScreen("quiz");
+    setCurrentIndex(0);
+    setScore(0);
+    setUserAnswers([]);
+    setSelected("");
+  };
   // result screen
   if (screen === "result")
     return (
@@ -32,6 +39,7 @@ function App() {
         score={score}
         totalQuestions={totalQuestions}
         userAnswers={userAnswers}
+        playAgain={playAgain}
       />
     );
 
@@ -39,49 +47,51 @@ function App() {
     <>
       {/* quiz section  */}
       <div className="min-h-screen bg-base-300 flex items-center justify-center">
-        <div>
-          {/* progress  */}
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm">
-              Question {currentQuestionNumber} of {totalQuestions}
-            </span>
-            <span className="badge badge-outline bg-blue-700 text-white">
-              {(currentQuestionNumber / totalQuestions) * 100}%
-            </span>
-          </div>
-          <progress
-            className="progress progress-primary w-full"
-            value={currentQuestionNumber}
-            max={totalQuestions}
-          ></progress>
-          {/* question  */}
-          <h2 className="text-xl font-semibold mb-4">
-            {currentQuestion.title}
-          </h2>
-          {/* options  */}
-          <div className="grid">
-            {currentQuestion.options.map((option, index) => (
-              <button
-                className={`btn text-start  justify-start px-8 py-5 my-1 ${selected === option ? "btn-primary" : ""}`}
-                key={index}
-                onClick={() => setSelected(option)}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
+        <div className="card w-full max-w-md  shadow-xl">
+          <div className="body">
+            {/* progress  */}
+            <div className="flex justify-between items-center ">
+              <span className="text-sm">
+                Question {currentQuestionNumber} of {totalQuestions}
+              </span>
+              <span className="badge badge-outline bg-blue-700 text-white">
+                {(currentQuestionNumber / totalQuestions) * 100}%
+              </span>
+            </div>
+            <progress
+              className="progress progress-primary w-full"
+              value={currentQuestionNumber}
+              max={totalQuestions}
+            ></progress>
+            {/* question  */}
+            <h2 className="text-xl font-semibold mb-4">
+              {currentQuestion.title}
+            </h2>
+            {/* options  */}
+            <div className="grid">
+              {currentQuestion.options.map((option, index) => (
+                <button
+                  className={`btn text-start  justify-start px-8 py-6 my-1.5 ${selected === option ? "btn-primary" : ""}`}
+                  key={index}
+                  onClick={() => setSelected(option)}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
 
-          {/* next button  */}
-          <div>
-            <button
-              className="btn rounded-sm btn-block btn-primary mt-4"
-              disabled={!selected}
-              onClick={handleNext}
-            >
-              {currentIndex === totalQuestions - 1
-                ? "Finish quiz"
-                : "Next quiz"}
-            </button>
+            {/* next button  */}
+            <div>
+              <button
+                className="btn rounded-md btn-block btn-primary mt-5"
+                disabled={!selected}
+                onClick={handleNext}
+              >
+                {currentIndex === totalQuestions - 1
+                  ? "Finish quiz"
+                  : "Next quiz"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
