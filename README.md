@@ -1,16 +1,53 @@
-# React + Vite
+# React Quiz App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and interactive **Quiz Application** built with React.  
+This app lets users start a quiz, answer questions, and view results with feedback on each question answered.
 
-Currently, two official plugins are available:
+_Visit the live demo here:_  
+https://jade-nougat-b6993e.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🧠 **Start Screen:** Welcomes the user before the quiz begins.
+- ❓ **Quiz Screen:** Displays questions and accepts user answers.
+- 📊 **Result Screen:** Shows:
+  - Total correct answers
+  - Percentage score
+  - Detailed feedback for each question
+- ✔️ Correct answers highlighted
+- ❌ Incorrect answers marked clearly
+- Styled using **Tailwind CSS** and **DaisyUI**
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧩 How It Works
+
+1. User clicks **Start Quiz** on the start screen.
+2. Quiz questions are rendered one by one.
+3. User selects answers and completes all questions.
+4. Result screen shows performance and answers summary.
+
+---
+
+## 🛠️ Technologies Used
+
+- **React.js** – Component based UI
+- **Tailwind CSS** – Utility‑first styling
+- **DaisyUI** – Component classes for UI
+- **JavaScript** – Logic and state management
+
+---
+
+## 📁 Folder Structure
+
+src/
+├── components/
+│ ├── StartScreen.jsx
+│ ├── QuizScreen.jsx
+│ └── ResultScreen.jsx
+├── data/
+│ └── questions.js
+├── App.jsx
+└── index.js
