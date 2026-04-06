@@ -1,57 +1,36 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import "./App.css";
+import questions from "./data/questions";
+import ResultScreen from "./components/ResultScreen";
 
-const questions = [
-  {
-    title: "What is the capital of France?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: "Paris",
-  },
-  {
-    title: "What is the largest planet in our solar system?",
-    options: ["Earth", "Mars", "Jupiter", "Saturn"],
-    answer: "Jupiter",
-  },
-  {
-    title: "Who wrote the play 'Romeo and Juliet'?",
-    options: [
-      "William Shakespeare",
-      "Charles Dickens",
-      "Jane Austen",
-      "Mark Twain",
-    ],
-    answer: "William Shakespeare",
-  },
-  {
-    title: "What is the chemical symbol for water?",
-    options: ["H2O", "CO2", "NaCl", "O2"],
-    answer: "H2O",
-  },
-  {
-    title: "What is the largest mammal in the world?",
-    options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
-    answer: "Blue Whale",
-  },
-];
 function App() {
   const [selected, setSelected] = useState("");
+  const [screen, setScreen] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const currentQuestion = questions[currentIndex];
+
+  const totalQuestions = questions.length;
+  const currentQuestionNumber = currentIndex + 1;
+
   const handleNext = () => {
     const isCorrect = selected === currentQuestion.answer;
     if (isCorrect) setScore((prev) => prev + 1);
     setUserAnswers([...userAnswers, selected]);
-    setCurrentIndex((prev) => prev + 1);
-    setSelected("");
+    if (currentIndex < totalQuestions - 1) {
+      setCurrentIndex((prev) => prev + 1);
+      setSelected("");
+    } else {
+      return setScreen("result");
+    }
   };
-  console.log({ score, userAnswers, setSelected });
-  const totalQuestions = questions.length;
-  const currentQuestionNumber = currentIndex + 1;
+  // result screen
+  if (screen === "result") return <ResultScreen />;
 
   return (
     <>
+      {/* quiz section  */}
       <div className="min-h-screen bg-base-300 flex items-center justify-center">
         <div>
           {/* progress  */}
@@ -92,7 +71,9 @@ function App() {
               disabled={!selected}
               onClick={handleNext}
             >
-              Next quiz
+              {currentIndex === totalQuestions - 1
+                ? "Finish quiz"
+                : "Next quiz"}
             </button>
           </div>
         </div>
