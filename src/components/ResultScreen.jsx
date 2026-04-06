@@ -34,7 +34,10 @@ export default function ResultScreen({
                 const iscorrect = userAnswer === question.answer;
 
                 return (
-                  <div className="mb-3 border border-base-200 rounded-lg p-4">
+                  <div
+                    key={index}
+                    className="mb-3 border border-base-200 rounded-lg p-4"
+                  >
                     <h2 className="font-bold">{question.title}</h2>
                     <div>
                       <span className="font-semibold text-gray-700 text-[15px]">

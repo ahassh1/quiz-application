@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import questions from "./data/questions";
 import ResultScreen from "./components/ResultScreen";
+import StartScreen from "./components/StartScreen";
 
 function App() {
   const [selected, setSelected] = useState("");
   const [screen, setScreen] = useState("quiz");
+  const [startScreen, setStartScreen] = useState("start");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
@@ -43,6 +45,12 @@ function App() {
       />
     );
 
+  // startScreen
+  const startQuiz = () => {
+    setStartScreen("quiz");
+  };
+  if (startScreen === "start") return <StartScreen startQuiz={startQuiz} />;
+
   return (
     <>
       {/* quiz section  */}
@@ -71,8 +79,8 @@ function App() {
             <div className="grid">
               {currentQuestion.options.map((option, index) => (
                 <button
-                  className={`btn text-start  justify-start px-8 py-6 my-1.5 ${selected === option ? "btn-primary" : ""}`}
                   key={index}
+                  className={`btn text-start  justify-start px-8 py-6 my-1.5 ${selected === option ? "btn-primary" : ""}`}
                   onClick={() => setSelected(option)}
                 >
                   {option}
